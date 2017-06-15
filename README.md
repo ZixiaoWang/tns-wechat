@@ -2,9 +2,9 @@
 A WeChat plugin for NativeScript Project.  
 Currently this plugin only suport Android platform, iOS is on its way coming.
 
-### I wanna share my staff to WeChat
+### I wanna share my stuff to WeChat
 For Android developer, Please make sure you've gotten the **AppID** from Tecent.
-Otherwise it will FAIL sharing any staff to WeChat platform.
+Otherwise it will FAIL sharing any stuff to WeChat platform.
 
 ### How Can I install this plugin?
 At currently stage, the plugin still need some polishing work before being published. So if you wanna have a trial, or help me find any bugs or inappropriated places, you may install it via entering cammand  
