@@ -1,0 +1,31 @@
+{
+  "name": "tns-wechat",
+  "version": "1.0.0",
+  "description": "A WeChat plugin for NativeScript Projects",
+  "main": "wechat",
+  "nativescript": {
+    "platforms": {
+      "ios": "1.8.0",
+      "android": "1.8.0"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "tns plugin add tns-wechat"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ZixiaoWang/tns-wechat.git"
+  },
+  "keywords": [
+    "NativeScript",
+    "Plugin",
+    "Wechat",
+    "JavaScript"
+  ],
+  "author": "Jacky Wang",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^2.3.4"
+  }
+}
