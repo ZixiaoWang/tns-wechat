@@ -20,24 +20,52 @@ At currently stage, the plugin still need some polishing work before being publi
         // 注册你的appID
         let wechat = new WeChat('wx1234567890123456');
         
-        // Share text to Session
-        // 分享文字信息到我的好友
-        wechat
-            .sendText('Hello World')
-            .toSession(); 
-
         // Share Webpage to Timeline
         // 分享网页到我的朋友圈
         wechat
             .sendWebpage('https://www.google.com')
             .addTitle('Google')
             .addDescription('This is description')
+            .addThumbnail('data:image/png;base64,AIND923kdf....')
             .toTimeline();      
-
-        // Share Image to Favorite
-        // 将图片加入微信“我的收藏”
-        wechat
-            .sendImage('/your/image/path/image.png')
-            .toFavorite();
     }
+```
+
+### APIs
+#### isInstalled
+```
+    isInstalled(): boolean
+```
+#### Send
+```
+    sendText(txt: string): WeChat    
+    sendWebpage(url: string): WeChat    
+    sendImage(path: string): WeChat  
+    sendImage(base64String: string): WeChat
+```
+#### Add
+```
+    addTitle(title?: string): WeChat
+    addDescription(description: string): WeChat
+    addMessageTagName(msgTagName: string): WeChat
+    addMessageAction(msgAction: string): WeChat
+    addMessageExt(msgExt: string): WeChat
+    addThumbnail(path: string): WeChat
+    addThumbnail(base64String: string): WeChat
+
+    decorate({
+        title?: string,
+        description?: string,
+        messageTagName?: string,
+        messageAction?: string,
+        messageExt?: string,
+        thumbData?: string (imagePath or Base64String)
+    }): WeChat
+```
+#### To
+```
+    to(target: string): boolean (target must be in ["session", "timeline", "favorite"])
+    toSession(): boolean
+    toTimeline(): boolean
+    toFavorite(): boolean
 ```
