@@ -2,13 +2,11 @@
 
 var Application = require('tns-core-modules/application');
 var utils = require('utils/utils');
-var ImageSourceModule = require("image-source");
 var ImageSource = require('image-source');
-
 
 function setThumbnailQuality(width, height){
     if( !width || typeof width !== 'number'){
-        throw new Error('Parameters must be a valid number');
+        return this;
     }
     if(height){
         this.THUMB_WIDTH = width;
@@ -146,21 +144,26 @@ WeChat.prototype.addMessageExt = function(messageExt){
     return this;
 }
 WeChat.prototype.addThumbnail = function(arg){
-    let pureArg = arg.replace(/^data:image\/\w*;base64,/, '');
-    if(/^([A-Za-z0-9+\/]{4})*([A-Za-z0-9+\/]{4}|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{2}==)$/.test(pureArg)){
-        let imageBitMap = base64ToBitMap(pureArg);
-        let scaledImageBitMap = android.graphics.Bitmap.createScaledBitmap(imageBitMap, this.THUMB_WIDTH, this.THUMB_HEIGHT, true);
-        imageBitMap.recycle();
-        this.mediaMessage.setThumbImage(scaledImageBitMap);
-        // let stream = new java.io.ByteArrayOutputStream();
-        // imageBitMap.compress(android.graphics.Bitmap.CompressFormat.JPEG, this.thumbnailQuality, stream);
-        // this.mediaMessage.thumbData = stream.toByteArray();
-        return this;
+    if(typeof arg === 'string'){
+        let pureArg = arg.replace(/^data:image\/\w*;base64,/, '');
+        if(/^([A-Za-z0-9+\/]{4})*([A-Za-z0-9+\/]{4}|[A-Za-z0-9+\/]{3}=|[A-Za-z0-9+\/]{2}==)$/.test(pureArg)){
+            let imageBitMap = base64ToBitMap(pureArg);
+            let scaledImageBitMap = android.graphics.Bitmap.createScaledBitmap(imageBitMap, this.THUMB_WIDTH, this.THUMB_HEIGHT, true);
+            imageBitMap.recycle();
+            this.mediaMessage.setThumbImage(scaledImageBitMap);
+            return this;
+        }else if(ImageSource.isFileOrResourcePath(arg)){
+            let image = ImageSource.fromFileOrResource(arg);
+            let imageBitMap = android.graphics.Bitmap.createBitmap(image.android);
+            let scaledImageBitMap = android.graphics.Bitmap.createScaledBitmap(imageBitMap, this.THUMB_WIDTH, this.THUMB_HEIGHT, true);
+            imageBitMap.recycle();
+            this.mediaMessage.setThumbImage(scaledImageBitMap);
+            return this;
+        }else{
+            throw new Error(arg + ' is not a valid path/base64 string');
+        }
     }else{
-        // var imageInBase64 = ImageSourceModule.fromNativeSource(arg).toBase64('png');
-        // return this.addThumbnail(imageInBase64);
-        let image = ImageSourceModule.fromFileOrResource(arg);
-        let imageBitMap = android.graphics.Bitmap.createBitmap(image.android);
+        let imageBitMap = android.graphics.Bitmap.createBitmap(arg.android);
         let scaledImageBitMap = android.graphics.Bitmap.createScaledBitmap(imageBitMap, this.THUMB_WIDTH, this.THUMB_HEIGHT, true);
         imageBitMap.recycle();
         this.mediaMessage.setThumbImage(scaledImageBitMap);
