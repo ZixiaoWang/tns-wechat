@@ -50,8 +50,9 @@ At currently stage, the plugin still need some polishing work before being publi
     addMessageTagName(msgTagName: string): WeChat
     addMessageAction(msgAction: string): WeChat
     addMessageExt(msgExt: string): WeChat
-    addThumbnail(path: string): WeChat
+    addThumbnail(localPath: string): WeChat
     addThumbnail(base64String: string): WeChat
+    addThumbnail(image: ImageSource): WeChat
 
     decorate({
         title?: string,
@@ -59,7 +60,7 @@ At currently stage, the plugin still need some polishing work before being publi
         messageTagName?: string,
         messageAction?: string,
         messageExt?: string,
-        thumbData?: string (imagePath or Base64String)
+        thumbData?: string or ImageSource (imagePath or Base64String)
     }): WeChat
 ```
 #### To
