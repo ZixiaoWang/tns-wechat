@@ -70,5 +70,3 @@ At currently stage, the plugin still need some polishing work before being publi
     toTimeline(): boolean
     toFavorite(): boolean
 ```
-
-<hr>
